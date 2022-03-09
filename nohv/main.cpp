@@ -1,12 +1,30 @@
 #include <ntddk.h>
 
-void driver_unload(PDRIVER_OBJECT) {
+#define EXEC_DETECTION(x)\
+  if (x())\
+    DbgPrint("[-] Failed check: " #x "().\n");\
+  else\
+    DbgPrint("[+] Passed check: " #x "().\n");
 
+// cr3.cpp
+bool cr3_detected_1();
+
+void driver_unload(PDRIVER_OBJECT) {
+  DbgPrint("[nohv] Driver unloaded.\n");
 }
 
 NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
-  if (driver)
-    driver->DriverUnload = driver_unload;
+  DbgPrint("[nohv] Driver loaded.\n");
+
+  driver->DriverUnload = driver_unload;
+
+  // bind execution to a single logical processor
+  auto const affinity = KeSetSystemAffinityThreadEx(1);
+
+  // cr3.cpp
+  EXEC_DETECTION(cr3_detected_1);
+
+  KeRevertToUserAffinityThreadEx(affinity);
 
   return STATUS_SUCCESS;
 }

@@ -50,12 +50,14 @@
     <OutDir>$(SolutionDir)build\$(ConfigurationName.toLower())\</OutDir>
     <IntDir>$(SolutionDir)build\$(ConfigurationName.toLower())\intermediate\</IntDir>
     <EnableInf2cat>false</EnableInf2cat>
+    <IncludePath>$(SolutionDir)extern\ia32-doc\out;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <OutDir>$(SolutionDir)build\$(ConfigurationName.toLower())\</OutDir>
     <IntDir>$(SolutionDir)build\$(ConfigurationName.toLower())\intermediate\</IntDir>
     <EnableInf2cat>false</EnableInf2cat>
+    <IncludePath>$(SolutionDir)extern\ia32-doc\out;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -65,6 +67,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DisableSpecificWarnings>4201;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EntryPointSymbol>driver_entry</EntryPointSymbol>
@@ -81,6 +84,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <DisableSpecificWarnings>4201;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EntryPointSymbol>driver_entry</EntryPointSymbol>
@@ -90,6 +94,7 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cr3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
