@@ -10,6 +10,9 @@
 bool cr3_detected_1();
 bool cr3_detected_2();
 
+// timing.cpp
+bool timing_detected_1();
+
 void driver_unload(PDRIVER_OBJECT) {
   DbgPrint("Driver unloaded.\n");
 }
@@ -25,6 +28,9 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   // cr3.cpp
   EXEC_DETECTION(cr3_detected_1);
   EXEC_DETECTION(cr3_detected_2);
+
+  // timing.cpp
+  EXEC_DETECTION(timing_detected_1);
 
   KeRevertToUserAffinityThreadEx(affinity);
 

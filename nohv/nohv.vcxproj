@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="cr3.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="timing.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

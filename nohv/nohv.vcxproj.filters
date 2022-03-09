@@ -25,5 +25,8 @@
     <ClCompile Include="cr3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="timing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
