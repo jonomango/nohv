@@ -31,6 +31,9 @@ bool cr3_detected_1() {
     } __except (1) {
       // maybe the write passed through even though an exception was raised?
       if (__readcr3() != curr_cr3.flags) {
+        // restore old CR3 after hypervisor pooped on it
+        __writecr3(curr_cr3.flags);
+
         _enable();
         return true;
       }

@@ -28,5 +28,8 @@
     <ClCompile Include="timing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cr0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

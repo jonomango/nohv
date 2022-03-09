@@ -3,7 +3,7 @@
 #include <ntddk.h>
 
 // Classic timing detection that checks if the time to
-// execute the cpuid instruction is suspiciously large.
+// execute the CPUID instruction is suspiciously large.
 bool timing_detected_1() {
   _disable();
 
@@ -39,6 +39,7 @@ bool timing_detected_1() {
   return (lowest_tsc > 500);
 }
 
+// IPI callback that executes CPUID in a loop on every logical processor.
 ULONG_PTR ipi_callback(ULONG_PTR const context) {
   size_t& detected_count = *reinterpret_cast<size_t*>(context);
 

@@ -6,6 +6,9 @@
   else\
     DbgPrint("[+] Passed check: " #x "().\n");
 
+// cr0.cpp
+bool cr0_detected_1();
+
 // cr3.cpp
 bool cr3_detected_1();
 bool cr3_detected_2();
@@ -25,6 +28,9 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
 
   // bind execution to a single logical processor
   auto const affinity = KeSetSystemAffinityThreadEx(1);
+
+  // cr0.cpp
+  EXEC_DETECTION(cr0_detected_1);
 
   // cr3.cpp
   EXEC_DETECTION(cr3_detected_1);
