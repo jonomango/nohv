@@ -10,11 +10,11 @@
 bool cr3_detected_1();
 
 void driver_unload(PDRIVER_OBJECT) {
-  DbgPrint("[nohv] Driver unloaded.\n");
+  DbgPrint("Driver unloaded.\n");
 }
 
 NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
-  DbgPrint("[nohv] Driver loaded.\n");
+  DbgPrint("Driver loaded.\n");
 
   driver->DriverUnload = driver_unload;
 
