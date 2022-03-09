@@ -1,6 +1,10 @@
 #include <ia32.hpp>
 #include <intrin.h>
 
+// this function tries to detect hypervisors that don't properly check
+// reserved bits in CR3 (aka bits [63:MAXPHYSADDR]).
+// 
+// Vol3C[26.3.1.1(Checks on Guest Control Registers, Debug Registers, and MSRs)]
 bool cr3_detected_1() {
   _disable();
 
