@@ -26,6 +26,12 @@ bool timing_detected_1() {
     auto const delta = (end - start);
     if (delta < lowest_tsc)
       lowest_tsc = delta;
+
+    // they over-accounted and TSC delta went negative
+    if (delta & (1ull << 63)) {
+      _enable();
+      return true;
+    }
   }
 
   _enable();
