@@ -31,5 +31,8 @@
     <ClCompile Include="cr0.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="xsetbv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

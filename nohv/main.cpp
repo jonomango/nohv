@@ -13,6 +13,9 @@ bool cr0_detected_1();
 bool cr3_detected_1();
 bool cr3_detected_2();
 
+// xsetbv.cpp
+bool xsetbv_detected_1();
+
 // timing.cpp
 bool timing_detected_1();
 bool timing_detected_2();
@@ -35,6 +38,9 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   // cr3.cpp
   EXEC_DETECTION(cr3_detected_1);
   EXEC_DETECTION(cr3_detected_2);
+
+  // xsetbv.cpp
+  EXEC_DETECTION(xsetbv_detected_1);
 
   // timing.cpp
   EXEC_DETECTION(timing_detected_1);
