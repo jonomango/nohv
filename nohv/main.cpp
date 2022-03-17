@@ -35,6 +35,7 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   EXEC_DETECTION(xsetbv_detected_2);
   EXEC_DETECTION(xsetbv_detected_3);
   EXEC_DETECTION(xsetbv_detected_4);
+  EXEC_DETECTION(xsetbv_detected_5);
 
   // timing.cpp
   DbgPrint("Testing timing.cpp:\n");

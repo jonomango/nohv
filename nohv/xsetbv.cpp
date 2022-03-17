@@ -134,3 +134,151 @@ bool xsetbv_detected_4() {
   return false;
 }
 
+// This detection tries to write an invalid combination to XCR0.
+// 
+// Vol3[2.6(Extended Control Registers (Including XCR0))]
+bool xsetbv_detected_5() {
+  _disable();
+
+  xcr0 curr_xcr0;
+  curr_xcr0.flags = _xgetbv(0);
+
+  // clear XCR0.x87
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.x87 = 0;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // clear XCR0.SSE and set XCR0.AVX
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.sse = 0;
+    test_xcr0.avx = 1;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // clear XCR0.AVX and set any of XCR0.opmask, XCR0.ZMM_Hi256, and XCR0.Hi16_ZMM
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.avx    = 0;
+    test_xcr0.opmask = 1;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // clear XCR0.AVX and set any of XCR0.opmask, XCR0.ZMM_Hi256, and XCR0.Hi16_ZMM
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.avx       = 0;
+    test_xcr0.zmm_hi256 = 1;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // clear XCR0.AVX and set any of XCR0.opmask, XCR0.ZMM_Hi256, and XCR0.Hi16_ZMM
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.avx      = 0;
+    test_xcr0.zmm_hi16 = 1;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // set either XCR0.BNDREG and XCR0.BNDCSR while not setting the other
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.bndreg = 0;
+    test_xcr0.bndcsr = 1;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // set either XCR0.BNDREG and XCR0.BNDCSR while not setting the other
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.bndreg = 1;
+    test_xcr0.bndcsr = 0;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // set any of XCR0.opmask, XCR0.ZMM_Hi256, and
+  // XCR0.Hi16_ZMM while not setting all of them
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.opmask    = 0;
+    test_xcr0.zmm_hi256 = 1;
+    test_xcr0.zmm_hi16  = 1;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // set any of XCR0.opmask, XCR0.ZMM_Hi256, and
+  // XCR0.Hi16_ZMM while not setting all of them
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.opmask    = 1;
+    test_xcr0.zmm_hi256 = 0;
+    test_xcr0.zmm_hi16  = 1;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // set any of XCR0.opmask, XCR0.ZMM_Hi256, and
+  // XCR0.Hi16_ZMM while not setting all of them
+  __try {
+    auto test_xcr0 = curr_xcr0;
+    test_xcr0.opmask    = 1;
+    test_xcr0.zmm_hi256 = 1;
+    test_xcr0.zmm_hi16  = 0;
+    _xsetbv(0, test_xcr0.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  _enable();
+  return false;
+}
+
