@@ -4,7 +4,7 @@
 
 // This detection tries to write to an XCR that is not supported.
 // 
-// Vol3C[2.6(Extended Control Registers (Including XCR0))]
+// Vol3[2.6(Extended Control Registers (Including XCR0))]
 bool xsetbv_detected_1() {
   _disable();
 
@@ -24,7 +24,7 @@ bool xsetbv_detected_1() {
 
 // This detection tries to set every unsupported bit in XCR0.
 // 
-// Vol3C[2.6(Extended Control Registers (Including XCR0))]
+// Vol3[2.6(Extended Control Registers (Including XCR0))]
 bool xsetbv_detected_2() {
   _disable();
 
@@ -79,6 +79,7 @@ extern "C" void xsetbv_full(uint64_t rcx, uint64_t rdx, uint64_t rax);
 // This detection tries to catch hypervisors that incorrectly include
 // the high part of the RAX register when emulating XSETBV.
 // 
+// Vol2[5.2(XSETBV - Set Extended Control Register)]
 // https://github.com/wbenny/hvpp/blob/84b3f3c241e1eec3ab42f75cad9deef3ad67e6ab/src/hvpp/hvpp/vmexit/vmexit_passthrough.cpp#L959
 // https://github.com/eyalz800/zpp_hypervisor/blob/master/hypervisor/src/hypervisor/hypervisor.cpp#L1021
 // https://github.com/ionescu007/SimpleVisor/blob/989d33b1bc6569965d7aad3bd50a8d35fa4c359e/shvvmxhv.c#L163
@@ -108,3 +109,28 @@ bool xsetbv_detected_3() {
   _enable();
   return false;
 }
+
+// This detection tries to catch hypervisors that incorrectly include
+// the high part of the RCX register when emulating XSETBV.
+// 
+// Vol2[5.2(XSETBV - Set Extended Control Register)]
+bool xsetbv_detected_4() {
+  _disable();
+
+  xcr0 curr_xcr0;
+  curr_xcr0.flags = _xgetbv(0);
+
+  __try {
+    xsetbv_full(69ull << 32, curr_xcr0.flags << 32,
+      curr_xcr0.flags & 0xFFFF'FFFF);
+  }
+  __except (1) {
+    // no exception should be raised since the high part of RCX should be ignored...
+    _enable();
+    return true;
+  }
+
+  _enable();
+  return false;
+}
+

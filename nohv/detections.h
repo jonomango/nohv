@@ -11,6 +11,7 @@ bool cr3_detected_2();
 bool xsetbv_detected_1();
 bool xsetbv_detected_2();
 bool xsetbv_detected_3();
+bool xsetbv_detected_4();
 
 // timing.cpp
 bool timing_detected_1();

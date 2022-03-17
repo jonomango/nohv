@@ -4,7 +4,7 @@
 // This function tries to detect hypervisors that don't properly check
 // reserved bits in CR3 (aka bits [63:MAXPHYSADDR]).
 // 
-// Vol3C[26.3.1.1(Checks on Guest Control Registers, Debug Registers, and MSRs)]
+// Vol3[26.3.1.1(Checks on Guest Control Registers, Debug Registers, and MSRs)]
 bool cr3_detected_1() {
   _disable();
 
@@ -47,8 +47,8 @@ bool cr3_detected_1() {
 // This function tries to detect hypervisors that don't properly ignore
 // bit 63 of CR3 while CR4.PCIDE=1.
 // 
-// Vol3C[4.10.4.1(Operations that Invalidate TLBs and Paging-Structure Caches)]
-// Vol3C[26.3.1.1(Checks on Guest Control Registers, Debug Registers, and MSRs)]
+// Vol3[4.10.4.1(Operations that Invalidate TLBs and Paging-Structure Caches)]
+// Vol3[26.3.1.1(Checks on Guest Control Registers, Debug Registers, and MSRs)]
 bool cr3_detected_2() {
   _disable();
 
