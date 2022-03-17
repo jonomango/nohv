@@ -97,6 +97,7 @@
     <ClCompile Include="cpuid.cpp" />
     <ClCompile Include="cr0.cpp" />
     <ClCompile Include="cr3.cpp" />
+    <ClCompile Include="cr4.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="timing.cpp" />
     <ClCompile Include="xsetbv.cpp" />

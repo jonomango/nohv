@@ -37,6 +37,9 @@
     <ClCompile Include="cpuid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cr4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="detections.h">
