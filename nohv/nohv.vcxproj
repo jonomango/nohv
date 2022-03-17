@@ -100,6 +100,9 @@
     <ClCompile Include="timing.cpp" />
     <ClCompile Include="xsetbv.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="detections.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
