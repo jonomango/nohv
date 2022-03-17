@@ -20,6 +20,10 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   // bind execution to a single logical processor
   auto const affinity = KeSetSystemAffinityThreadEx(1);
 
+  // cpuid.cpp
+  DbgPrint("Testing cpuid.cpp:\n");
+  EXEC_DETECTION(cpuid_detected_1);
+
   // cr0.cpp
   DbgPrint("Testing cr0.cpp:\n");
   EXEC_DETECTION(cr0_detected_1);

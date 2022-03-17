@@ -1,5 +1,8 @@
 #pragma once
 
+// cpuid.cpp
+bool cpuid_detected_1();
+
 // cr0.cpp
 bool cr0_detected_1();
 

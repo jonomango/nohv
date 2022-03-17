@@ -1,7 +1,6 @@
 #include <ia32.hpp>
 #include <intrin.h>
 
-
 // This detection tries to write to an XCR that is not supported.
 // 
 // Vol3[2.6(Extended Control Registers (Including XCR0))]
