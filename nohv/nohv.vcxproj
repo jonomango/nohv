@@ -103,6 +103,9 @@
   <ItemGroup>
     <ClInclude Include="detections.h" />
   </ItemGroup>
+  <ItemGroup>
+    <MASM Include="xsetbv-asm.asm" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
