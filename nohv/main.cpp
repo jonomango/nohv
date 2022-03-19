@@ -24,6 +24,10 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   DbgPrint("Testing cpuid.cpp:\n");
   EXEC_DETECTION(cpuid_detected_1);
 
+  // msr.cpp
+  DbgPrint("Testing msr.cpp:\n");
+  EXEC_DETECTION(msr_detected_1);
+
   // cr0.cpp
   DbgPrint("Testing cr0.cpp:\n");
   EXEC_DETECTION(cr0_detected_1);

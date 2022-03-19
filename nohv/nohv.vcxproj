@@ -99,6 +99,7 @@
     <ClCompile Include="cr3.cpp" />
     <ClCompile Include="cr4.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="msr.cpp" />
     <ClCompile Include="timing.cpp" />
     <ClCompile Include="xsetbv.cpp" />
   </ItemGroup>

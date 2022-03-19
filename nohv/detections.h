@@ -3,6 +3,9 @@
 // cpuid.cpp
 bool cpuid_detected_1();
 
+// msr.cpp
+bool msr_detected_1();
+
 // cr0.cpp
 bool cr0_detected_1();
 
