@@ -98,6 +98,7 @@
     <ClCompile Include="cr0.cpp" />
     <ClCompile Include="cr3.cpp" />
     <ClCompile Include="cr4.cpp" />
+    <ClCompile Include="debug.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="msr.cpp" />
     <ClCompile Include="timing.cpp" />

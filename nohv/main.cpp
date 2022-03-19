@@ -56,6 +56,10 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   EXEC_DETECTION(timing_detected_1);
   EXEC_DETECTION(timing_detected_2);
 
+  // debug.cpp
+  DbgPrint("Testing debug.cpp:\n");
+  EXEC_DETECTION(debug_detected_1);
+
   KeRevertToUserAffinityThreadEx(affinity);
 
   return STATUS_SUCCESS;
