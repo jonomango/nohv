@@ -31,6 +31,7 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   // cr0.cpp
   DbgPrint("Testing cr0.cpp:\n");
   EXEC_DETECTION(cr0_detected_1);
+  EXEC_DETECTION(cr0_detected_2);
 
   // cr3.cpp
   DbgPrint("Testing cr3.cpp:\n");

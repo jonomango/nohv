@@ -8,6 +8,7 @@ bool msr_detected_1();
 
 // cr0.cpp
 bool cr0_detected_1();
+bool cr0_detected_2();
 
 // cr3.cpp
 bool cr3_detected_1();

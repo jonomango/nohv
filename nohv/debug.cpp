@@ -1,6 +1,10 @@
 #include <ia32.hpp>
 #include <intrin.h>
 
+// This detection checks to see if the hypervisor properly stores and
+// restores the guest DR7 register during a vm-exit.
+// 
+// Vol3[27.5.1(Loading Host Control Registers, Debug Registers, MSRs)]
 bool debug_detected_1() {
   _disable();
 
