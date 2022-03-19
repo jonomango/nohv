@@ -13,6 +13,7 @@ bool cr3_detected_2();
 // cr4.cpp
 bool cr4_detected_1();
 bool cr4_detected_2();
+bool cr4_detected_3();
 
 // xsetbv.cpp
 bool xsetbv_detected_1();

@@ -64,3 +64,49 @@ bool cr4_detected_2() {
   return false;
 }
 
+// This detection tries to modify reserved bits in CR4 and checks if an
+// exception was successfully raised. This check is NOT exhaustive, but
+// covers (almost) everything.
+// 
+// Vol2[4.3(MOV - Move to/from Control Registers)]
+// Vol3[2.5(Control Registers)]
+bool cr4_detected_3() {
+  _disable();
+
+  cr4 curr_cr4;
+  curr_cr4.flags = __readcr4();
+
+  // clear CR4.PAE
+  __try {
+    auto test_cr4 = curr_cr4;
+    test_cr4.physical_address_extension = 0;
+    __writecr4(test_cr4.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // set CR4.LA57
+  __try {
+    auto test_cr4 = curr_cr4;
+    test_cr4.la57_enable = 1;
+    __writecr4(test_cr4.flags);
+
+    // an exception should have been raised
+    _enable();
+    return true;
+  }
+  __except (1) {}
+
+  // change CR4.PCIDE from 0 to 1 while CR3[11:0] != 000H
+  __try {
+    // TODO:
+  }
+  __except (1) {}
+
+  _enable();
+  return false;
+}
+
