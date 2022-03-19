@@ -10,30 +10,19 @@ bool cr4_detected_1() {
   return curr_cr4.vmx_enable;
 }
 
-// This detection tries to enable CR4.VMXE and sees how the hypervisor reacts.
+// This detection tries to flip CR4.VMXE and sees how the hypervisor reacts.
 // 
 // Vol3[23.7(Enabling and Entering VMX Operation)]
 // Vol3[23.8(Restrictions on VMX Operation)]
 bool cr4_detected_2() {
   _disable();
 
-  ia32_feature_control_register feature_control;
-  feature_control.flags = __readmsr(IA32_FEATURE_CONTROL);
-
-  // VMX not enabled by BIOS.
-  // TODO:
-  //   if this check fails, would setting CR4.VMXE cause a #GP?
-  if (!feature_control.lock_bit || !feature_control.enable_vmx_outside_smx) {
-    _enable();
-    return false;
-  }
-
   cr4 curr_cr4;
   curr_cr4.flags = __readcr4();
 
   __try {
     auto test_cr4 = curr_cr4;
-    test_cr4.vmx_enable = 1;
+    test_cr4.vmx_enable = !test_cr4.vmx_enable;
     __writecr4(test_cr4.flags);
 
     // check if the write actually went through
@@ -76,11 +65,19 @@ bool cr4_detected_3() {
   cr4 curr_cr4;
   curr_cr4.flags = __readcr4();
 
-  // clear CR4.PAE
   __try {
     auto test_cr4 = curr_cr4;
+
+    // clear CR4.PAE
     test_cr4.physical_address_extension = 0;
+
+    // flip CR4.VMXE to ensure that a vm-exit occurs
+    test_cr4.vmx_enable = !test_cr4.vmx_enable;
+
     __writecr4(test_cr4.flags);
+
+    // restore CR4
+    __writecr4(curr_cr4.flags);
 
     // an exception should have been raised
     _enable();
@@ -88,11 +85,19 @@ bool cr4_detected_3() {
   }
   __except (1) {}
 
-  // set CR4.LA57
   __try {
     auto test_cr4 = curr_cr4;
+
+    // set CR4.LA57
     test_cr4.la57_enable = 1;
+
+    // flip CR4.VMXE to ensure that a vm-exit occurs
+    test_cr4.vmx_enable = !test_cr4.vmx_enable;
+
     __writecr4(test_cr4.flags);
+
+    // restore CR4
+    __writecr4(curr_cr4.flags);
 
     // an exception should have been raised
     _enable();
