@@ -43,7 +43,7 @@ bool timing_detected_1() {
 ULONG_PTR ipi_callback(ULONG_PTR const context) {
   size_t& detected_count = *reinterpret_cast<size_t*>(context);
 
-  for (size_t i = 0; i < 1000; ++i) {
+  for (size_t i = 0; i < 100; ++i) {
     int regs[4] = {};
 
     _mm_lfence();

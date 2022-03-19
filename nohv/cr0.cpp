@@ -3,10 +3,6 @@
 
 // This detection tries to set reserved bits in CR0 (bits 63:32)
 // that should trigger an exception.
-// TODO:
-//   I haven't tested this out yet but it seems like a vm-exit isn't
-//   even triggered when the guest tries to write to reserved bits. If
-//   this is the case then this detection is useless :(.
 bool cr0_detected_1() {
   _disable();
 
