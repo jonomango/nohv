@@ -59,5 +59,8 @@
     <MASM Include="xsetbv-asm.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="vmx-asm.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

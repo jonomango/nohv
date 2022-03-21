@@ -118,3 +118,34 @@ bool vmx_detected_2() {
   return detected;
 }
 
+// This function executes the VMCALL instruction.
+extern "C" void vmx_vmcall(uint64_t rcx, uint64_t rdx, uint64_t r8, uint64_t r9);
+
+// This detection tries to execute VMCALL and checks if a #UD was
+// correctly raised (since we're not in VMX operation).
+bool vmx_detected_3() {
+  // we do a lil' bruteforcin
+  for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 20; ++j) {
+      unsigned long ecode = 0;
+
+      __try {
+        uint64_t args[4] = {};
+        args[i] = j;
+
+        vmx_vmcall(args[0], args[1], args[2], args[3]);
+
+        // an exception should've been raised
+        return true;
+      }
+      __except (ecode = GetExceptionCode(), 1) {
+        // make sure they injected the correct exception
+        if (ecode != STATUS_ILLEGAL_INSTRUCTION)
+          return true;
+      }
+    }
+  }
+
+  return false;
+}
+
