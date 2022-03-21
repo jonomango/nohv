@@ -108,3 +108,42 @@ bool cr3_detected_2() {
   return false;
 }
 
+// This function tries to detect hypervisors that unconditionally ignore
+// bit 63 of CR3, even when CR4.PCIDE=0.
+bool cr3_detected_3() {
+  _disable();
+
+  cr4 curr_cr4;
+  curr_cr4.flags = __readcr4();
+
+  // TODO: add support for when PCIDE is set
+  if (curr_cr4.pcid_enable) {
+    _enable();
+    return false;
+  }
+
+  cr3 curr_cr3;
+  curr_cr3.flags = __readcr3();
+
+  bool detected = false;
+
+  __try {
+    auto test_cr3 = curr_cr3;
+    test_cr3.flags |= (1ull << 63);
+    __writecr3(test_cr3.flags);
+
+    // an exception should be raised since bit 63 of CR3
+    // is only used when CR4.PCIDE is set to 1.
+    detected = true;
+  }
+  __except (1) {
+    detected = false;
+  }
+
+  // restore CR3
+  __writecr3(curr_cr3.flags);
+
+  _enable();
+  return false;
+}
+
