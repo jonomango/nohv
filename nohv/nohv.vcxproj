@@ -102,6 +102,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="msr.cpp" />
     <ClCompile Include="timing.cpp" />
+    <ClCompile Include="vmx.cpp" />
     <ClCompile Include="xsetbv.cpp" />
   </ItemGroup>
   <ItemGroup>

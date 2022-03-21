@@ -61,6 +61,10 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   DbgPrint("Testing debug.cpp:\n");
   EXEC_DETECTION(debug_detected_1);
 
+  // vmx.cpp
+  DbgPrint("Testing vmx.cpp:\n");
+  EXEC_DETECTION(vmx_detected_1);
+
   KeRevertToUserAffinityThreadEx(affinity);
 
   return STATUS_SUCCESS;

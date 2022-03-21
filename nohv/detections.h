@@ -33,3 +33,6 @@ bool timing_detected_2();
 // debug.cpp
 bool debug_detected_1();
 
+// vmx.cpp
+bool vmx_detected_1();
+
