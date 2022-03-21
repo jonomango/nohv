@@ -35,4 +35,5 @@ bool debug_detected_1();
 
 // vmx.cpp
 bool vmx_detected_1();
+bool vmx_detected_2();
 
