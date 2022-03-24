@@ -21,32 +21,32 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   auto const affinity = KeSetSystemAffinityThreadEx(1);
 
   // cpuid.cpp
-  DbgPrint("Testing cpuid.cpp:\n");
+  DbgPrint("Testing cpuid:\n");
   EXEC_DETECTION(cpuid_detected_1);
 
   // msr.cpp
-  DbgPrint("Testing msr.cpp:\n");
+  DbgPrint("Testing msr:\n");
   EXEC_DETECTION(msr_detected_1);
 
   // cr0.cpp
-  DbgPrint("Testing cr0.cpp:\n");
+  DbgPrint("Testing cr0:\n");
   EXEC_DETECTION(cr0_detected_1);
   EXEC_DETECTION(cr0_detected_2);
 
   // cr3.cpp
-  DbgPrint("Testing cr3.cpp:\n");
+  DbgPrint("Testing cr3:\n");
   EXEC_DETECTION(cr3_detected_1);
   EXEC_DETECTION(cr3_detected_2);
   EXEC_DETECTION(cr3_detected_3);
 
   // cr4.cpp
-  DbgPrint("Testing cr4.cpp:\n");
+  DbgPrint("Testing cr4:\n");
   EXEC_DETECTION(cr4_detected_1);
   EXEC_DETECTION(cr4_detected_2);
   EXEC_DETECTION(cr4_detected_3);
 
   // xsetbv.cpp
-  DbgPrint("Testing xsetbv.cpp:\n");
+  DbgPrint("Testing xsetbv:\n");
   EXEC_DETECTION(xsetbv_detected_1);
   EXEC_DETECTION(xsetbv_detected_2);
   EXEC_DETECTION(xsetbv_detected_3);
@@ -54,16 +54,17 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   EXEC_DETECTION(xsetbv_detected_5);
 
   // timing.cpp
-  DbgPrint("Testing timing.cpp:\n");
+  DbgPrint("Testing timing:\n");
   EXEC_DETECTION(timing_detected_1);
   EXEC_DETECTION(timing_detected_2);
+  EXEC_DETECTION(timing_detected_3);
 
   // debug.cpp
-  DbgPrint("Testing debug.cpp:\n");
+  DbgPrint("Testing debug:\n");
   EXEC_DETECTION(debug_detected_1);
 
   // vmx.cpp
-  DbgPrint("Testing vmx.cpp:\n");
+  DbgPrint("Testing vmx:\n");
   EXEC_DETECTION(vmx_detected_1);
   EXEC_DETECTION(vmx_detected_2);
   EXEC_DETECTION(vmx_detected_3);

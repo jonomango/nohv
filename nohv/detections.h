@@ -30,6 +30,7 @@ bool xsetbv_detected_5();
 // timing.cpp
 bool timing_detected_1();
 bool timing_detected_2();
+bool timing_detected_3();
 
 // debug.cpp
 bool debug_detected_1();
