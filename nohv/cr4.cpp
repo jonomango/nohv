@@ -89,7 +89,7 @@ bool cr4_detected_3() {
     auto test_cr4 = curr_cr4;
 
     // set CR4.LA57
-    test_cr4.la57_enable = 1;
+    test_cr4.linear_addresses_57_bit = 1;
 
     // flip CR4.VMXE to ensure that a vm-exit occurs
     test_cr4.vmx_enable = !test_cr4.vmx_enable;
