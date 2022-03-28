@@ -42,7 +42,7 @@ bool timing_detected_1() {
 }
 
 // IPI callback that executes CPUID in a loop on every logical processor.
-ULONG_PTR ipi_callback(ULONG_PTR const context) {
+static ULONG_PTR ipi_callback(ULONG_PTR const context) {
   size_t& detected_count = *reinterpret_cast<size_t*>(context);
 
   for (size_t i = 0; i < 100; ++i) {
