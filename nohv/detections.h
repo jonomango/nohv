@@ -34,6 +34,7 @@ bool timing_detected_2();
 bool timing_detected_3();
 bool timing_detected_4();
 bool timing_detected_5();
+bool timing_detected_6();
 
 // debug.cpp
 bool debug_detected_1();
