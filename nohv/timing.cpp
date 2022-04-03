@@ -5,6 +5,7 @@
 // Hardcoded execution times for CPUID instruction.
 inline constexpr size_t max_acceptable_tsc   = 500;
 inline constexpr size_t max_acceptable_mperf = 500;
+inline constexpr size_t max_acceptable_aperf = 500;
 
 // Classic timing detection that checks if the time to
 // execute the CPUID instruction is suspiciously large. This
@@ -349,3 +350,40 @@ bool timing_detected_6() {
   return (lowest_mperf > max_acceptable_mperf);
 }
 
+// Classic timing detection that checks if the time to
+// execute the CPUID instruction is suspiciously large. This
+// check uses the APERF to measure execution time.
+bool timing_detected_7() {
+  _disable();
+
+  uint64_t lowest_aperf = MAXULONG64;
+
+  // we only care about the lowest APERF delta for reliability since an NMI,
+  // an SMI, or TurboBoost could fuck up our timings.
+  for (int i = 0; i < 10; ++i) {
+    int regs[4] = {};
+
+    _mm_lfence();
+    auto const start = __readmsr(IA32_APERF);
+    _mm_lfence();
+
+    __cpuid(regs, 0);
+
+    _mm_lfence();
+    auto const end = __readmsr(IA32_APERF);
+    _mm_lfence();
+
+    auto const delta = (end - start);
+    if (delta < lowest_aperf)
+      lowest_aperf = delta;
+
+    // they over-accounted and APERF delta went negative
+    if (delta & (1ull << 63)) {
+      _enable();
+      return true;
+    }
+  }
+
+  _enable();
+  return (lowest_aperf > max_acceptable_aperf);
+}
