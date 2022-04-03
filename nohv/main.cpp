@@ -45,6 +45,7 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   EXEC_DETECTION(cr4_detected_1);
   EXEC_DETECTION(cr4_detected_2);
   EXEC_DETECTION(cr4_detected_3);
+  EXEC_DETECTION(cr4_detected_4);
 
   // xsetbv.cpp
   DbgPrint("Testing xsetbv:\n");
@@ -63,6 +64,7 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   // debug.cpp
   DbgPrint("Testing debug:\n");
   EXEC_DETECTION(debug_detected_1);
+  EXEC_DETECTION(debug_detected_2);
 
   // vmx.cpp
   DbgPrint("Testing vmx:\n");

@@ -33,3 +33,7 @@ bool debug_detected_1() {
   return false;
 }
 
+bool debug_detected_2() {
+  return false;
+}
+

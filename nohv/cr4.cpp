@@ -53,11 +53,9 @@ bool cr4_detected_2() {
   return false;
 }
 
-// This detection tries to modify reserved bits in CR4 and checks if an
-// exception was successfully raised. This check is NOT exhaustive, but
-// covers (almost) everything.
+// This detection tries to set reserved bits in CR0 (bits 63:32)
+// that should trigger an exception.
 // 
-// Vol2[4.3(MOV - Move to/from Control Registers)]
 // Vol3[2.5(Control Registers)]
 bool cr4_detected_3() {
   _disable();
@@ -115,3 +113,43 @@ bool cr4_detected_3() {
   return false;
 }
 
+// This d
+bool cr4_detected_4() {
+  _disable();
+
+  cr4 curr_cr4;
+  curr_cr4.flags = __readcr4();
+
+  for (int i = 32; i < 64; ++i) {
+    __try {
+      auto test_cr4 = curr_cr4;
+
+      // set a reserved bit
+      test_cr4.flags |= (1ull << i);
+
+      // flip CR4.VMXE to ensure that a vm-exit occurs
+      test_cr4.vmx_enable = !test_cr4.vmx_enable;
+
+      // this should trigger an exception
+      __writecr4(test_cr4.flags);
+
+      // restore CR4 after the hypervisor mucked it
+      __writecr4(curr_cr4.flags);
+
+      _enable();
+      return true;
+    } __except (1) {
+      // maybe the write went through even though an exception was raised?
+      if (curr_cr4.flags != __readcr4()) {
+        // restore CR4 after the hypervisor mucked it
+        __writecr0(curr_cr4.flags);
+
+        _enable();
+        return true;
+      }
+    }
+  }
+
+  _enable();
+  return false;
+}

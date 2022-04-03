@@ -38,6 +38,8 @@ bool cr0_detected_1() {
 
 // This detection tries to set reserved bits in CR0 (bits 63:32)
 // that should trigger an exception.
+// 
+// Vol3[2.5(Control Registers)]
 bool cr0_detected_2() {
   _disable();
 

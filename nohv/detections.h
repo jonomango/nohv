@@ -20,6 +20,7 @@ bool cr3_detected_3();
 bool cr4_detected_1();
 bool cr4_detected_2();
 bool cr4_detected_3();
+bool cr4_detected_4();
 
 // xsetbv.cpp
 bool xsetbv_detected_1();
@@ -35,6 +36,7 @@ bool timing_detected_3();
 
 // debug.cpp
 bool debug_detected_1();
+bool debug_detected_2();
 
 // vmx.cpp
 bool vmx_detected_1();
