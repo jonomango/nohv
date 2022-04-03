@@ -53,9 +53,11 @@ bool cr4_detected_2() {
   return false;
 }
 
-// This detection tries to set reserved bits in CR0 (bits 63:32)
-// that should trigger an exception.
+// This detection tries to modify reserved bits in CR4 and checks if an
+// exception was successfully raised. This check is NOT exhaustive, but
+// covers (almost) everything.
 // 
+// Vol2[4.3(MOV - Move to/from Control Registers)]
 // Vol3[2.5(Control Registers)]
 bool cr4_detected_3() {
   _disable();
@@ -113,7 +115,10 @@ bool cr4_detected_3() {
   return false;
 }
 
-// This d
+// This detection tries to set reserved bits in CR0 (bits 63:32)
+// that should trigger an exception.
+// 
+// Vol3[2.5(Control Registers)]
 bool cr4_detected_4() {
   _disable();
 

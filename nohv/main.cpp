@@ -27,7 +27,6 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   // msr.cpp
   DbgPrint("Testing msr:\n");
   EXEC_DETECTION(msr_detected_1);
-  EXEC_DETECTION(msr_detected_2);
 
   // cr0.cpp
   DbgPrint("Testing cr0:\n");
@@ -60,6 +59,8 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   EXEC_DETECTION(timing_detected_1);
   EXEC_DETECTION(timing_detected_2);
   EXEC_DETECTION(timing_detected_3);
+  EXEC_DETECTION(timing_detected_4);
+  EXEC_DETECTION(timing_detected_5);
 
   // debug.cpp
   DbgPrint("Testing debug:\n");

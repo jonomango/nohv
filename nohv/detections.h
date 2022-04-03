@@ -5,7 +5,6 @@ bool cpuid_detected_1();
 
 // msr.cpp
 bool msr_detected_1();
-bool msr_detected_2();
 
 // cr0.cpp
 bool cr0_detected_1();
@@ -33,6 +32,8 @@ bool xsetbv_detected_5();
 bool timing_detected_1();
 bool timing_detected_2();
 bool timing_detected_3();
+bool timing_detected_4();
+bool timing_detected_5();
 
 // debug.cpp
 bool debug_detected_1();
