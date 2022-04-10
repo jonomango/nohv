@@ -62,7 +62,6 @@ NTSTATUS driver_entry(PDRIVER_OBJECT driver, PUNICODE_STRING) {
   EXEC_DETECTION(timing_detected_4);
   EXEC_DETECTION(timing_detected_5);
   EXEC_DETECTION(timing_detected_6);
-  EXEC_DETECTION(timing_detected_7);
 
   // debug.cpp
   DbgPrint("Testing debug:\n");
