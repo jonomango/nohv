@@ -153,6 +153,15 @@ bool timing_detected_3() {
 bool timing_detected_4() {
   _disable();
 
+  cpuid_eax_06 cpuid_06;
+  __cpuid(reinterpret_cast<int*>(&cpuid_06), 6);
+
+  // IA32_MPERF/IA32_APERF MSRs are not supported
+  if (!cpuid_06.ecx.hardware_coordination_feedback_capability) {
+    _enable();
+    return false;
+  }
+
   uint64_t lowest_mperf = MAXULONG64;
 
   // we only care about the lowest MPERF delta for reliability since an NMI,
@@ -182,7 +191,8 @@ bool timing_detected_4() {
   }
 
   _enable();
-  return (lowest_mperf > max_acceptable_mperf);
+  return (lowest_mperf > max_acceptable_mperf)
+      || (lowest_mperf <= 10);
 }
 
 // Classic timing detection that checks if the time to
@@ -190,6 +200,15 @@ bool timing_detected_4() {
 // check uses the APERF to measure execution time.
 bool timing_detected_5() {
   _disable();
+
+  cpuid_eax_06 cpuid_06;
+  __cpuid(reinterpret_cast<int*>(&cpuid_06), 6);
+
+  // IA32_MPERF/IA32_APERF MSRs are not supported
+  if (!cpuid_06.ecx.hardware_coordination_feedback_capability) {
+    _enable();
+    return false;
+  }
 
   uint64_t lowest_aperf = MAXULONG64;
 
@@ -220,7 +239,8 @@ bool timing_detected_5() {
   }
 
   _enable();
-  return (lowest_aperf > max_acceptable_aperf);
+  return (lowest_aperf > max_acceptable_aperf)
+      || (lowest_aperf <= 10);
 }
 
 // Measures the amount of time it takes to read+write
