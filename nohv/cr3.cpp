@@ -68,7 +68,7 @@ bool cr3_detected_2() {
     __except (1) {
       // shouldn't raise an exception
       _enable();
-      return false;
+      return true;
     }
   }
   // PCIDE=0
@@ -100,7 +100,7 @@ bool cr3_detected_2() {
 
       // shouldn't raise an exception
       _enable();
-      return false;
+      return true;
     }
   }
 
@@ -144,6 +144,6 @@ bool cr3_detected_3() {
   __writecr3(curr_cr3.flags);
 
   _enable();
-  return false;
+  return detected;
 }
 
