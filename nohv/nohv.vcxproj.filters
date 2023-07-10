@@ -62,5 +62,8 @@
     <MASM Include="vmx-asm.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="timing-asm.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

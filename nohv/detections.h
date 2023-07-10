@@ -10,6 +10,7 @@ bool msr_detected_2();
 // cr0.cpp
 bool cr0_detected_1();
 bool cr0_detected_2();
+bool cr0_detected_3();
 
 // cr3.cpp
 bool cr3_detected_1();
@@ -36,6 +37,7 @@ bool timing_detected_3();
 bool timing_detected_4();
 bool timing_detected_5();
 bool timing_detected_6();
+bool timing_detected_7();
 
 // debug.cpp
 bool debug_detected_1();
