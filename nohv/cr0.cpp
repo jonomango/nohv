@@ -83,44 +83,43 @@ bool cr0_detected_2() {
 // Some hypervisisors improperly handle reserved bits in cr0
 // Attempting to set any reserved bits in CR0[31:0] is ignored.
 bool cr0_detected_3() {
-    _disable();
-
-    cr0 curr_cr0;
-    curr_cr0.flags = __readcr0();
-
-    __try {
-        auto test_cr0 = curr_cr0;
-
-        // set reserved bits within cr0[31:0]
-        test_cr0.reserved1 = 1;
-        test_cr0.reserved2 = 1;
-        test_cr0.reserved3 = 1;
-
-        // flip CR0.NE so that a vm-exit is triggered
-        test_cr0.numeric_error = !test_cr0.numeric_error;
-
-        // this should not trigger an exception
-        __writecr0(test_cr0.flags);
-
-        // check that the bits were ignored
-        if (__readcr0() == test_cr0.flags) {
-            // restore correct cr0
-            __writecr0(curr_cr0.flags);
-
-            _enable();
-            return true;
-        }
-
-        __writecr0(curr_cr0.flags);
+  _disable();
+  
+  cr0 curr_cr0;
+  curr_cr0.flags = __readcr0();
+  
+  __try {
+    auto test_cr0 = curr_cr0;
+    
+    // set reserved bits within cr0[31:0]
+    test_cr0.reserved1 = 1;
+    test_cr0.reserved2 = 1;
+    test_cr0.reserved3 = 1;
+    
+    // flip CR0.NE so that a vm-exit is triggered
+    test_cr0.numeric_error = !test_cr0.numeric_error;
+    
+    // this should not trigger an exception
+    __writecr0(test_cr0.flags);
+    
+    // check that the bits were ignored
+    if (__readcr0() == test_cr0.flags) {
+      // restore correct cr0
+      __writecr0(curr_cr0.flags);
+      
+      _enable();
+      return true;
     }
-    __except (1) {
-        // restore correct cr0
-        __writecr0(curr_cr0.flags);
-
-        _enable();
-        return true;
-    }
-
+    
+    __writecr0(curr_cr0.flags);
+  } __except (1) {
+    // restore correct cr0
+    __writecr0(curr_cr0.flags);
+            
     _enable();
-    return false;
+    return true;
+  }
+
+  _enable();
+  return false;
 }

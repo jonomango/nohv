@@ -339,5 +339,5 @@ extern "C" bool check_rdtscp_regs();
 // This detection occurs due to an improper implementation of rdtscp
 // On processors that support the Intel 64 architecture, the high - order 32 bits of each of RAX, RDX, and RCX are cleared.
 bool timing_detected_7() {
-    return check_rdtscp_regs();
+  return check_rdtscp_regs();
 }
